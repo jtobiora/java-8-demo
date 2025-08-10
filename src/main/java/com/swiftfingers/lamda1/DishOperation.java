@@ -52,6 +52,16 @@ public class DishOperation {
         Map<String, Integer> nameCount = menu.stream().collect( //
                 Collectors.toMap(Dish::getName, s -> s.getName().replace(" ", "").length()));
         System.out.println("NAMES COUNT ---- " + nameCount);
+
+//        Map<String, Integer> nameCount = menu.stream()
+//                .filter(Objects::nonNull)
+//                .filter(dish -> dish.getName() != null)
+//                .collect(Collectors.toMap(
+//                        Dish::getName,
+//                        dish -> dish.getName().replace(" ", "").length(),
+//                        (oldValue, newValue) -> oldValue
+//                ));
+        System.out.println("NAMES COUNT: " + nameCount);
     }
 
     public static void printDishesByTheirNames(List<Dish> menu) {

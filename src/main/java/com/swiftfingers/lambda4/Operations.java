@@ -5,6 +5,7 @@ import lombok.extern.slf4j.Slf4j;
 import java.util.*;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
+import java.util.function.Function;
 import java.util.stream.Collectors;
 
 @Slf4j
@@ -30,9 +31,10 @@ public class Operations {
     public static void groupByAgeAndCountPeopleInEachAgeBracket(List<Person> persons) {
         Map<Integer, Long> map = persons.stream()
                 .collect(Collectors.groupingBy(Person::getAge, Collectors.counting()));
-//        Map<Integer,Person> map2 =
+
+//        Map<Integer,Long> map2 =
 //        persons.stream().collect(Collectors.toMap(Person::getAge,
-//         Function.identity(),(p1, p2) -> p1.getName().equals(p2.getName()) ? p1 : p2));
+//         p -> 1L,Long::sum);
 
         System.out.println("GROUP BY AGE AND COUNT THE NUMBER OF PEOPLE IN EACH GROUP");
         System.out.println(map);
@@ -41,7 +43,8 @@ public class Operations {
 
     public static void groupByAgeAndGetAListOfNames(List<Person> persons) {
         Map<Integer, List<String>> map2 = persons.stream().collect(
-                Collectors.groupingBy(Person::getAge, Collectors.mapping(Person::getName, Collectors.toList())));
+                Collectors.groupingBy(Person::getAge,
+                        Collectors.mapping(Person::getName, Collectors.toList())));
 
         System.out.println("GROUP BY AGE AND MAP EACH NAME INTO A LIST");
         System.out.println(map2);
@@ -66,7 +69,8 @@ public class Operations {
     }
 
     public static void groupByAgeAndSortNamesAscending(List<Person> persons) {
-        Map<Integer, Set<String>> map3 = persons.stream().collect(Collectors.groupingBy(Person::getAge,
+        Map<Integer, Set<String>> map3 = persons.stream()
+                .collect(Collectors.groupingBy(Person::getAge,
                 Collectors.mapping(Person::getName, Collectors.toCollection(TreeSet::new))));
 
         System.out.println("SORT BY AGE AND NAMES ASCENDING");
@@ -158,7 +162,7 @@ public class Operations {
         // .collect(Collectors.toList()));
 
         TreeSet<String> set = persons.stream().map(Person::getProgrammingLanguages) // returns a Stream<List<String>>
-                .flatMap(l -> l.stream()) // returns Stream<String>
+                .flatMap(Collection::stream) // returns Stream<String>
                 .collect(Collectors.toCollection(TreeSet::new));
 
         System.out.println(set);
