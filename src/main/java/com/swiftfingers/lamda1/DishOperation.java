@@ -4,6 +4,8 @@ import com.swiftfingers.lambda3.Employee;
 
 import java.util.*;
 import java.util.Map.Entry;
+import java.util.function.BinaryOperator;
+import java.util.function.Function;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -168,6 +170,20 @@ public class DishOperation {
         System.out.println("HIGHEST CALORIE DISH IN A SUBGROUP");
         System.out.println(dishes + "\n");
     }
+
+//    public static void findTheHighestCalorieDishInASubgroup(List<Dish> menu) {
+//        Map<Dish.Type, Dish> result = Optional.ofNullable(menu)
+//                .orElseGet(Collections::emptyList)
+//                .stream()
+//                .filter(Objects::nonNull)
+//                .collect(Collectors.toMap(
+//                        Dish::getType,
+//                        Function.identity(),
+//                        BinaryOperator.maxBy(Comparator.comparingInt(Dish::getCalories))
+//                ));
+//
+//        System.out.println("Highest calorie dishes by type: " + result);
+//    }
 
     public static void sumTheCaloriesInEachTypeOfDiet(List<Dish> menu) {
         Map<Dish.Type, Integer> sumOfDishes = menu.stream()
